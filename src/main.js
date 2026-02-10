@@ -101,7 +101,7 @@
 
       //10nm final extended lines ------------
 
-      runwayCoords = {
+      const runwayCoords = {
         OMAA_31L: [
           ["242518N", "0544001E"],
           ["241909N", "0544841E"],
