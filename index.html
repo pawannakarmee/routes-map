@@ -6,7 +6,7 @@
     <title>Route Display</title>
 
     <!-- Local Leaflet CSS for offline compatibility -->
-    <link rel="stylesheet" href="leaflet.css" />
+    <link rel="stylesheet" href="%BASE_URL%leaflet.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet/dist/leaflet.css"
@@ -18,7 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
-    <script src="leaflet.js"></script>
+    <script src="%BASE_URL%leaflet.js"></script>
     <script>
       // If local leaflet.js is missing or failed, load CDN
       if (typeof window.L === "undefined") {
@@ -53,7 +53,7 @@
       );
     </script>
 
-    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="%BASE_URL%src/styles.css" />
   </head>
   <body>
     <!-- Menu bar for buttons -->
@@ -258,8 +258,8 @@
     <input type="text" id="centerCoords" readonly />
     <!--style="width:180px; text-align:center;-->
 
-    <script src="ne_countries_inline.js"></script>
+    <script src="%BASE_URL%ne_countries_inline.js"></script>
 
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="%BASE_URL%src/main.js"></script>
   </body>
 </html>
