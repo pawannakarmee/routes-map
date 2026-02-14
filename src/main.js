@@ -63,7 +63,7 @@
       const sectorPolygons = {};
       const airwayPolylineMap = {};
       const freqLayer = L.layerGroup();
-      let coordLabelColor = "#919C9C"; //waypoint name color
+      let coordLabelColor = "#b2b8b8ea"; //waypoint name color
       let highlightedAirway = null;
       let activeHighlightedAirways = new Map();
       let airwayColorIndex = 0;
@@ -770,10 +770,10 @@
       });
 
       const dirColors = {
-        IN: "#BF6385",
-        OUT: "#5593D9",
-        BI: "#AD9747",
-        ST: "#549E7E",
+        IN: "#c95e85",
+        OUT: "#51a9e4",
+        BI: "#c4aa4b",
+        ST: "#61a386",
       };
 
       const extraPoints = {
@@ -4035,7 +4035,7 @@
       //--------------draw main FIR boundary------------------------
 
       let firBoundary = L.polyline(latlngs, {
-        color: "#AFB051", //yellow
+        color: "#BCBF54", //yellow
         weight: 1.2,
         dashArray: "3 3",
       }).addTo(map);
@@ -4209,7 +4209,16 @@
 
       function applyCoordLabelColor() {
         document.querySelectorAll(".coord-label").forEach((el) => {
-          el.style.color = coordLabelColor;
+          const name = (el.textContent || "").trim().toUpperCase(); // normalize
+          const dir = extraColorGroups[name]; // e.g. "OUT", "IN", ...
+
+          if (dir && dirColors[dir]) {
+            // ✅ keep special waypoint colors always
+            el.style.color = dirColors[dir];
+          } else {
+            // normal labels follow toggle color
+            el.style.color = coordLabelColor;
+          }
         });
       }
       function applyAirwayColor() {
@@ -4390,10 +4399,20 @@
 
       //-----------------------------
       function setExtraLabelColor(color) {
-        coordLabelColor = color; // optional but keeps state consistent
+        coordLabelColor = color;
+
         extraLabelMarkers.forEach((label) => {
           const el = label.getElement();
-          if (el) el.style.color = color;
+          if (!el) return;
+
+          const name = (el.textContent || "").trim().toUpperCase();
+          const dir = extraColorGroups[name];
+
+          if (dir && dirColors[dir]) {
+            el.style.color = dirColors[dir]; // ✅ keep special
+          } else {
+            el.style.color = color; // normal
+          }
         });
       }
 
@@ -6690,38 +6709,42 @@
         displayExpandedRoute(from, to, routeKey);
       }
 
-      function toggleRouteTips() {
-        const button = document.getElementById("toggleRouteTipsBtn");
-        const routeTooltips = document.querySelectorAll(
-          ".leaflet-tooltip.route-extra-label",
-        );
-        const remarksOverlay = document.getElementById("remarksOverlay");
 
-        routeTipsVisible = !routeTipsVisible;
-        if (routeTipsVisible) {
-          routeTooltips.forEach((tooltip) => (tooltip.style.display = "block"));
-          if (remarksOverlay) remarksOverlay.style.display = "block";
-          //button.textContent = "RTE Info: On";
-          button.style.backgroundColor = ""; // Reset background color (or set to desired ON color)
-          button.style.color = "#B4F59D"; // Text color for ON state
+function removeRouteExtraTooltips() {
+  document
+    .querySelectorAll(".leaflet-tooltip.route-extra-label")
+    .forEach(el => el.remove());
+}
+ 
+//RTE Infor button toggle on off---------
+function toggleRouteTips() {
+  const button = document.getElementById("toggleRouteTipsBtn");
+  const remarksOverlay = document.getElementById("remarksOverlay");
 
-          // Check for selected route-pair button and show tooltips
-          const selectedRouteButton = document.querySelector(
-            "#routeList button.selected-route",
-          );
-          if (selectedRouteButton) {
-            const routeKey = selectedRouteButton.textContent; // Assuming button text is the routeKey
-            const [from, to] = routeKey.split("-");
-            showTooltipsForCurrentRoute(from, to, routeKey);
-          }
-        } else {
-          routeTooltips.forEach((tooltip) => (tooltip.style.display = "none"));
-          if (remarksOverlay) remarksOverlay.style.display = "none";
-          //button.textContent = "RTE Info: OFF";
-          button.style.color = "#c2c2c0"; // Text color for OFF state
-        }
-      }
+  routeTipsVisible = !routeTipsVisible;
 
+  document.body.classList.toggle("route-tips-on", routeTipsVisible);
+
+  if (remarksOverlay) {
+    remarksOverlay.classList.toggle("route-tips-visible", routeTipsVisible);
+  }
+
+  if (routeTipsVisible) {
+    button.style.backgroundColor = "";
+    button.style.color = "#B4F59D";
+
+    const selectedRouteButton = document.querySelector("#routeList button.selected-route");
+    if (selectedRouteButton) {
+      const routeKey = selectedRouteButton.textContent;
+      const [from, to] = routeKey.split("-");
+      removeRouteExtraTooltips();   
+      showTooltipsForCurrentRoute(from, to, routeKey);
+    }
+  } else {
+    button.style.color = "#c2c2c0";
+  }
+}
+      
       // Helper function to show tooltips for the current route
 
       function showTooltipsForCurrentRoute(from, to, routeKey) {
@@ -7409,36 +7432,41 @@
         document
           .getElementById("toggleMapBtn")
           ?.addEventListener("click", function () {
-            if (mapLayerVisible) {
+            const nextVisible = !mapLayerVisible;
+
+            if (!nextVisible) {
+              // MAP OFF
               map.removeLayer(baseMapLayer);
-              coordLabelColor = "#878F91";
-              airwayColor = "#848787"; // pick whatever you want for map OFF
-              //applyCoordLabelColor();
+              airwayColor = "#848787";
               applyAirwayColor();
+
               runwayLayers.forEach((layer) =>
                 layer.setStyle({ color: "#00ADD6" }),
               );
+              firBoundary.setStyle({ color: "#B3B386" });
+
+              coordLabelColor = "#959FA6";
             } else {
+              // MAP ON
               baseMapLayer.addTo(map);
-              coordLabelColor = "#627482";
               airwayColor = "#576C7D";
-              //applyCoordLabelColor();
               applyAirwayColor();
+
               runwayLayers.forEach((layer) =>
                 layer.setStyle({ color: "black" }),
               );
+              firBoundary.setStyle({ color: "#7D4575" });
+
+              coordLabelColor = "#242D30";
             }
 
-            function setExtraLabelColor(color) {
-              coordLabelColor = color; // keep your global in sync (optional but useful)
-              extraLabelMarkers.forEach((label) => {
-                const el = label.getElement();
-                if (el) el.style.color = color;
-              });
-            }
+            // ✅ re-apply to existing labels/markers
+            applyCoordLabelColor();
+            setExtraLabelColor(coordLabelColor);
 
-            mapLayerVisible = !mapLayerVisible;
+            mapLayerVisible = nextVisible;
           });
+
 
         //---------togglewaypoint--------
         /*
