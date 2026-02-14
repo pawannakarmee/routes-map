@@ -6816,10 +6816,10 @@ function toggleRouteTips() {
 
         const routeSteps = routeMap[from][to];
         document.getElementById("routeTooltip").textContent =
-          `${routeSteps.join(" ")}`;
+          `${routeSteps.join(" - ")}`;
 
         const sectors = routeSectors[routeKey];
-        const sectorText = sectors ? sectors.join(", ") : "—";
+        const sectorText = sectors ? sectors.join(" - ") : "—";
         document.getElementById("sectorTooltip").textContent =
           `Sectors: ${sectorText}`;
 

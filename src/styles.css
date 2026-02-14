@@ -65,7 +65,7 @@
     display: flex;
     gap: 3px;
     padding: 3px;
-    background: rgba(75, 89, 97, 0.6);
+    background: rgba(57, 67, 73, 0.6);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
     z-index: 3000;
@@ -80,7 +80,8 @@
     height: 28px;
     width: auto;
     min-width: 45px;
-    background: rgba(75, 89, 97, 0.473);
+    background: rgba(66, 78, 85, 0.6);
+
     border: 0.5px solid #8d9c9244;
     border-radius: 14px;
   }
@@ -656,15 +657,15 @@
     display: flex;
     flex-direction: column; /* Stack vertically */
     align-items: center;
-    gap: 3px;
+    gap: 0px;
     pointer-events: auto; /* Allow interaction with tooltips */
     z-index: 1500;
   }
 
   .tooltip {
-    padding: 3px 6px;
+    padding: 3.5px 6px;
     background: #233139;
-    color: rgb(227, 248, 246);
+    color: rgb(242, 255, 249);
     width: auto;
     top: 0;
     max-width: none;
@@ -679,8 +680,8 @@
     display: inline-block; /* Ensure individual width calculation */
     user-select: text; /* Allow text selection */
     background: rgba(49, 58, 59, 0.15);
-    backdrop-filter: blur(1.5px);
-    -webkit-backdrop-filter: blur(1.5px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
   .is-hidden {
@@ -691,12 +692,12 @@
     background: rgba(21, 59, 65, 0.479);
     border: 1px solid #287391b9;
     border-radius: 14px;
-    color: #c7fbff;
+    color: #e2ffec;
     font-size: 12px;
     font-family: 'Inter', 'Open Sans', Verdana, sans-serif;
     height: auto;
     backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
   /*----Specific styling CFL_XFL tooltip at the ends of the route------*/
@@ -705,9 +706,8 @@
   visibility: hidden;
   pointer-events: none;
   transition: opacity 120ms ease;
-  color: #c7fbff;
+  color: #e2ffec;
   padding: 1px 7px;
-  font-weight: bold;
   font-size: 12px;
   border-radius: 11px;
   position: absolute;
