@@ -109,7 +109,7 @@
     position: absolute;
     top: 116%;
     left: 0;
-    min-width: 60px;
+    min-width: 85px;
     background: rgba(186, 189, 190, 0.95);
     color: #0a3a40;
     padding: 6px;
@@ -667,8 +667,8 @@
     padding: 6px 12px;
     background: #233139;
     color: rgb(220, 253, 250);
-    font-size: 13px;
-    font-family: monospace; /*"Roboto", sans-serif;*/
+    font-size: 12px;
+    font-family: 'Inter', 'Open Sans', Verdana, sans-serif;
     border-radius: 12px;
     text-align: center;
     white-space: nowrap; /* Keep nowrap for single-line tooltips */
@@ -693,9 +693,8 @@
     border: 1px solid #287391b9;
     border-radius: 14px;
     color: #c7fbff;
-    font-size: 13px;
-    font-family: monospace;
-    font-weight: bold;
+    font-size: 12px;
+    font-family: 'Inter', 'Open Sans', Verdana, sans-serif;
     height: auto;
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
