@@ -62,13 +62,13 @@
     top: 0px;
     left: 0px;
     right: 0px;
-    z-index: 3000;
     display: flex;
     gap: 3px;
     padding: 3px;
     background: rgba(75, 89, 97, 0.6);
-    backdrop-filter: blur(1.5px);
-    -webkit-backdrop-filter: blur(1.5px);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 3000;
   }
 
   /* ------menu button styling (flat look)----- */
@@ -80,11 +80,9 @@
     height: 28px;
     width: auto;
     min-width: 45px;
-    /*background: transparent;  Remove background */
-    background: rgba(75, 89, 97, 0.336);
-    border: 0.5px solid #8d9c924b;
-    /*border: none;  Remove border */
-    border-radius: 14px; /* Remove individual rounding */
+    background: rgba(75, 89, 97, 0.473);
+    border: 0.5px solid #8d9c9244;
+    border-radius: 14px;
   }
   .map-btn:hover {
     background: rgba(110, 144, 148, 0.425);
@@ -453,7 +451,7 @@
     width: 30px;
     height: 28px;
     border-radius: 10px;
-    background: rgba(35, 49, 57, 0.7);
+    background: rgba(51, 68, 78, 0.7);
     border: 1px solid rgba(97, 128, 138, 0.479);
     backdrop-filter: blur(8px);
 
@@ -476,7 +474,7 @@
   /* OPEN → arrow DOWN */
   .rp-toggle.is-open .rp-arrow {
     border-width: 8px 6px 0 6px;
-    border-color: #fff transparent transparent transparent;
+    border-color: #dbd9d9 transparent transparent transparent;
   }
 
   /* CLOSED → arrow LEFT */
@@ -531,7 +529,7 @@
     font-family: sans-serif;
     border-radius: 12px;
     border: 0.1px solid rgb(124, 123, 123);
-    background: rgba(61, 81, 87, 0.397);
+    background: rgba(51, 69, 75, 0.603);
     color: #ffe9a8ee;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -664,9 +662,12 @@
   }
 
   .tooltip {
-    padding: 6px 12px;
+    padding: 3px 6px;
     background: #233139;
-    color: rgb(220, 253, 250);
+    color: rgb(227, 248, 246);
+    width: auto;
+    top: 0;
+    max-width: none;
     font-size: 12px;
     font-family: 'Inter', 'Open Sans', Verdana, sans-serif;
     border-radius: 12px;
@@ -674,9 +675,7 @@
     white-space: nowrap; /* Keep nowrap for single-line tooltips */
     overflow: hidden;
     text-overflow: ellipsis;
-    width: auto;
-    height: 14px;
-    max-width: none;
+
     display: inline-block; /* Ensure individual width calculation */
     user-select: text; /* Allow text selection */
     background: rgba(49, 58, 59, 0.15);
